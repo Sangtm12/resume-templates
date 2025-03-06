@@ -142,6 +142,11 @@ h3.header__name {
   font-weight: 500;
 }
 
+.header__row a {
+  color: #333;
+  text-decoration: none;
+}
+
 .header__icon-container i {
   color: var(--dark-blue);
   font-size: 18px;
@@ -214,6 +219,15 @@ h3.header__name {
   gap: 6px;
   margin-bottom: 8px;
   /* font-weight: 500; */
+}
+
+.exp-block__link {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.exp-block__summary {
+  margin-bottom: 8px;
 }
 
 .exp-block__details i {

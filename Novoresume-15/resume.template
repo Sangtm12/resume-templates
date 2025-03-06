@@ -1,0 +1,267 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimal-ui"
+    />
+    <title>{{#resume.basics}}{{name}}{{/resume.basics}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>{{{css}}}</style>
+  <style media="print">{{{print}}}</style>
+    <script
+      src="https://kit.fontawesome.com/cf1e271c16.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Font Awesome 6 Free (Solid, Regular, and Brands) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="resume-container">
+      <!-- HEADER -->
+      {{#resume.basics}}
+        <header>
+          <div class="header__main">
+            <h3 class="header__name">{{name}}</h3>
+            <p class="header__position">{{label}}</p>
+            <p class="header__description">{{summary}}</p>
+          </div>
+          <div class="header__contact">
+            {{#if email}}
+              <div class="header__row">
+                <a href="mailto:{{email}}">{{email}}</a>
+                <div class="header__icon-container">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+              </div>
+            {{/if}}
+            {{#if phone}}
+              <div class="header__row">
+                <span>{{phone}}</span>
+                <div class="header__icon-container">
+                  <i class="fa-solid fa-mobile"></i>
+                </div>
+              </div>
+            {{/if}}
+            {{#location}}
+              {{#ifCond address "||" city}}
+                <div class="header__row">
+                  {{#if address}}
+                    <span>{{address}}</span>
+                  {{else}}
+                    <span>{{city}}</span>
+                  {{/if}}
+                  {{#if countryCode}}
+                    <span>, {{countryCode}}</span>
+                  {{/if}}
+                  <div class="header__icon-container">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                </div>
+              {{/ifCond}}
+            {{/location}}
+            {{#if profiles.length}}
+              {{#foreach profiles}}
+                <div class="header__row">
+                  <a href="{{url}}" target="_blank">{{username}}</a>
+                  <div class="header__icon-container">
+                    {{#ifCond network "===" github}}
+                      <i class="fa-brands fa-github"></i>
+                    {{else ifCond network "===" linkedin}}
+                      <i class="fa-brands fa-linkedin"></i>
+                    {{else}}
+                      <i class="fa-solid fa-globe"></i>
+                    {{/ifCond}}
+                  </div>
+                </div>
+              {{/foreach}}
+            {{/if}}
+          </div>
+        </header>
+      {{/resume.basics}}
+      <!-- MAIN SECTION -->
+      <div class="main-container">
+        <div class="section-container exp">
+          {{#if resume.work.length}}
+          <div class="section-title-container">
+            <div class="icon-container">
+              <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <h3 class="section-title">Work experience</h3>
+          </div>
+          {{/if}}
+          {{#foreach resume.work}}
+          <div class="exp-block">
+            <h4 class="exp-block__title">{{position}}</h4>
+            <p class="exp-block__company">
+              {{name}}
+            </p>
+            {{#if startDate}}
+            <div class="exp-block__time-location">
+              <p class="exp-block__time">{{startDate}} - {{#if endDate}}{{endDate}}{{else}}Present{{/if}}</p>
+              {{#if location}}
+              <p class="exp-block__location">{{location}}</p>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{#if website}}
+            <a href="{{website}}" target="_blank" class="exp-block__link">{{website}}</a>
+            {{/if}}
+            {{#if summary}}
+            <p class="exp-block__summary">
+                {{summary}}
+              </p>
+            {{/if}}
+            {{#if highlights.length}}
+              {{#each highlights}}
+            <div class="exp-block__details">
+              <i class="fa-solid fa-caret-right"></i>
+              <p class="exp-block__description">
+                {{.}}
+              </p>
+            </div>
+              {{/each}}
+            {{/if}}
+          </div>
+          {{/foreach}}
+        </div>
+        <!-- SIDEBAR -->
+        <div class="section-container sidebar">
+          <!-- TECHNICAL SKILLS -->
+          {{#if resume.skills.length}}
+            <section>
+              <div class="section-title-container">
+                <div class="icon-container">
+                  <i class="fa-solid fa-gears"></i>
+                </div>
+                <h3 class="section-title">Technical skills</h3>
+              </div>
+              <div class="flex-wrapper">
+                {{#foreach resume.skills}}
+                  {{#each keywords}}
+                    <div class="flex-wrapper__item dark">{{.}}</div>
+                  {{/each}}
+                {{/foreach}}
+              </div>
+            </section>
+          {{/if}}
+          <!-- CERTIFICATES -->
+          {{#if resume.awards.length}}
+          <section>
+            <div class="section-title-container">
+              <div class="icon-container">
+                <i class="fa-solid fa-certificate"></i>
+              </div>
+              <h3 class="section-title">Certificates</h3>
+            </div>
+            <div class="col-wrapper">
+              {{#foreach resume.awards}}
+              <div class="col-wrapper__item">
+                <a href="#" class="col-wrapper__title">
+                  {{title}}
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+                <p class="col-wrapper__location">{{awarder}}</p>
+              </div>
+              {{/foreach}}
+            </div>
+          </section>
+          {{/if}}
+          <!-- PERSONAL PROJECTS -->
+          {{!-- <section>
+            <div class="section-title-container">
+              <div class="icon-container">
+                <i class="fa-solid fa-code"></i>
+              </div>
+              <h3 class="section-title">Personal projects</h3>
+            </div>
+            <div class="col-wrapper">
+              <div class="col-wrapper__item">
+                <p class="col-wrapper__title">Certificate of anything</p>
+                <div class="col-wrapper__description">
+                  <i class="fa-solid fa-caret-right"></i>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Non unde exercitationem iste illo est modi voluptas. Libero
+                    porro minima esse provident itaque excepturi, hic quod
+                    placeat repellat enim earum odit.
+                  </p>
+                </div>
+              </div>
+              <div class="col-wrapper__item">
+                <p class="col-wrapper__title">Certificate of anything</p>
+                <div class="col-wrapper__description">
+                  <i class="fa-solid fa-caret-right"></i>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Non unde exercitationem iste illo est modi voluptas. Libero
+                    porro minima esse provident itaque excepturi, hic quod
+                    placeat repellat enim earum odit.
+                  </p>
+                </div>
+              </div>
+              <div class="col-wrapper__item">
+                <p class="col-wrapper__title">Certificate of anything</p>
+                <div class="col-wrapper__description">
+                  <i class="fa-solid fa-caret-right"></i>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Non unde exercitationem iste illo est modi voluptas. Libero
+                    porro minima esse provident itaque excepturi, hic quod
+                    placeat repellat enim earum odit.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section> --}}
+          <!-- EDUCATION  -->
+          {{#if resume.education.length}}
+          <section>
+            <div class="section-title-container">
+              <div class="icon-container">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 class="section-title">Education</h3>
+            </div>
+            <div class="col-wrapper">
+              {{#foreach resume.education}}
+              <div class="col-wrapper__item">
+                <p class="col-wrapper__title--edu">{{institution}}</p>
+                <p class="col-wrapper__description--edu">{{area}}</p>
+                {{#if startDate}}
+                <p class="col-wrapper__time">{{startDate}}{{#if endDate}} - {{endDate}}{{/if}}</p>
+                {{/if}}
+              </div>
+              {{/foreach}}
+            </div>
+          </section>
+          {{/if}}
+          <!-- INTERESTS -->
+          {{#if resume.interests.length}}
+          <section>
+            <div class="section-title-container">
+              <div class="icon-container">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <h3 class="section-title">Interests</h3>
+            </div>
+            <div class="flex-wrapper">
+              {{#foreach resume.interests}}
+              <div class="flex-wrapper__item">{{name}}</div>
+              {{/foreach}}
+            </div>
+          </section>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
