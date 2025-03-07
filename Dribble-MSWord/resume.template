@@ -1,0 +1,151 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimal-ui"
+    />
+    <title>{{#resume.basics}}{{name}}{{/resume.basics}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./MSWord.css" />
+    <!-- Font Awesome 6 Free (Solid, Regular, and Brands) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>{{{css}}}</style>
+  <style media="print">{{{print}}}</style>
+  </head>
+  <body>
+    <div class="resume-container">
+      {{#resume.basics}}
+        <div class="hero">
+          <h3 class="hero__name">{{name}}</h3>
+          <div class="hero__divider"></div>
+          {{#if phone}}
+            <p class="hero__contact">Phone: {{phone}}</p>
+          {{/if}}
+          {{#if email}}
+            <p class="hero__contact">Email: {{email}}</p>
+          {{/if}}
+        </div>
+      {{/resume.basics}}
+      <div class="sidebar">
+        <!-- CONTACT -->
+        {{#resume.basics}}
+          <section>
+            <h3 class="section__title">Contact</h3>
+            <div class="section__contact-ctn">
+              {{#if phone}}
+                <div class="section__contact-item">
+                  <div class="section__contact-icon">
+                    <i class="fa-solid fa-mobile"></i>
+                  </div>
+                  <span>{{phone}}</span>
+                </div>
+              {{/if}}
+              {{#if email}}
+                <div class="section__contact-item">
+                  <div class="section__contact-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                  </div>
+                  <span>{{email}}</span>
+                </div>
+              {{/if}}
+            </div>
+          </section>
+        {{/resume.basics}}
+        <!-- EDUCATION -->
+        {{#if resume.education.length}}
+          <section>
+            <h3 class="section__title">Education</h3>
+            <div class="section__edu-ctn">
+              {{#foreach resume.education}}
+                <div class="section__edu-item">
+                  <p class="section__edu-degree">{{area}}</p>
+                  {{#if institution}}
+                    <p>{{institution}}{{#if studyType}}
+                        |
+                        {{studyType}}{{/if}}</p>
+                  {{/if}}
+                  {{#if startDate}}
+                    <p>{{startDate}}{{#if endDate}} - {{endDate}}{{/if}}</p>
+                  {{/if}}
+                </div>
+              {{/foreach}}
+            </div>
+          </section>
+        {{/if}}
+        {{#if resume.basics.profiles.length}}
+          <section>
+            <h3 class="section__title">Profile</h3>
+            {{#foreach resume.basics.profiles}}
+              <a
+                href="{{url}}"
+                target="_blank"
+                class="section__profile-link"
+              ><strong>{{network}} :</strong> {{username}}</a>
+            {{/foreach}}
+          </section>
+        {{/if}}
+        {{#if resume.skills.length}}
+          <section>
+            <h3 class="section__title">Skills</h3>
+            <ul class="section__skill-ctn">
+              {{#foreach resume.skills}}
+                {{#each keywords}}
+                  <li>{{.}}</li>
+                {{/each}}
+              {{/foreach}}
+            </ul>
+          </section>
+        {{/if}}
+      </div>
+      <div class="main">
+        <section>
+          <h3 class="section__title">Summary</h3>
+          <p>
+            {{resume.basics.summary}}
+          </p>
+        </section>
+        <section>
+          <h3 class="section__title">Work history</h3>
+          <div class="work-container">
+            {{#foreach resume.work}}
+              <div class="work">
+                <div class="work__title-time-ctn">
+                  <p class="work__title">{{position}}</p>
+                  {{#if startDate}}
+                    <p class="work__time">{{startDate}}{{#if endDate}}
+                        -
+                        {{endDate}}{{/if}}</p>
+                  {{/if}}
+                </div>
+                {{#if name}}
+                  <p class="work__company">{{name}}{{#if location}}
+                      |
+                      {{location}}{{/if}}</p>
+                {{/if}}
+                <p>
+                  {{summary}}
+                </p>
+                <ul class="work__highlights">
+                  {{#if highlights}}
+                    {{#each highlights}}
+                      <li>{{.}}</li>
+                    {{/each}}
+                  {{/if}}
+                </ul>
+              </div>
+            {{/foreach}}
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
